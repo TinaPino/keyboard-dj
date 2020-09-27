@@ -1,0 +1,130 @@
+const clips = [
+  {
+    key: 'Q',
+    clip: 'https://sampleswap.org/samples-ghost/DRUM%20LOOPS%20and%20BREAKS/000%20to%20080%20bpm/775[kb]080_major-domo-swinger.aif.mp3'
+  },
+  {
+    key: 'W',
+    clip: 'https://sampleswap.org/samples-ghost/DRUM%20LOOPS%20and%20BREAKS/000%20to%20080%20bpm/564[kb]080_drop-my-kick-n-clap.aif.mp3'
+  },
+  {
+    key: 'E',
+    clip: 'https://sampleswap.org/samples-ghost/DRUM%20LOOPS%20and%20BREAKS/000%20to%20080%20bpm/775[kb]080_crakkle-reverse-hit.aif.mp3'
+  },
+  {
+    key: 'A',
+    clip: 'https://sampleswap.org/samples-ghost/DRUM%20LOOPS%20and%20BREAKS/000%20to%20080%20bpm/1088[kb]080_glitchy-noises.wav.mp3'
+  },
+  {
+    key: 'S',
+    clip: 'https://sampleswap.org/samples-ghost/DRUM%20LOOPS%20and%20BREAKS/000%20to%20080%20bpm/775[kb]080_lynchpin-percussion-popper.aif.mp3'
+  },
+  {
+    key: 'D',
+    clip: 'https://sampleswap.org/samples-ghost/DRUM%20LOOPS%20and%20BREAKS/000%20to%20080%20bpm/263[kb]080_queens-beat.wav.mp3'
+  },
+  {
+    key: 'Z',
+    clip: 'https://sampleswap.org/samples-ghost/DRUM%20LOOPS%20and%20BREAKS/000%20to%20080%20bpm/1037[kb]080_supafly-bendy-hop.aif.mp3'
+  },
+  {
+    key: 'X',
+    clip: 'https://sampleswap.org/samples-ghost/DRUM%20LOOPS%20and%20BREAKS/000%20to%20080%20bpm/775[kb]080_sharp-verbhit-mystery-vox.aif.mp3'
+  },
+  {
+    key: 'C',
+    clip: 'https://sampleswap.org/samples-ghost/DRUM%20LOOPS%20and%20BREAKS/000%20to%20080%20bpm/775[kb]080_smooth-verby-shakem-2.aif.mp3'
+  },
+];
+
+const App = () => (<div>
+  <Topwords />
+  <div id="display" className="display">
+    <h1><i class="fas fa-drum"></i></h1>
+    {clips.map((sound, idx) => (
+      <DrumPad text={sound.key} key={idx} audio={sound.clip} />
+    ))}
+     <Navbar />
+    </div>
+    <Bottomwords />
+  </div>
+);
+
+const Navbar = (props) => {
+  return(
+  <nav className="fixed-bottom navbar navbar-dark bg-dark">
+     <a className="navbar-brand" href="https://tinapino.github.io" target="_blank">Home<i class="fas fa-home"></i></a>
+      <a className="navbar-brand" href="https://www.freecodecamp.org/tinapino" target="_blank">freeCodeCamp<i class="fab fa-free-code-camp"></i></a>
+           <a className="navbar-brand" href="https://github.com/TinaPino" target="_blank">Github<i class="fab fa-github"></i></a>
+   <a className="navbar-brand" href="https://www.linkedin.com/in/tina-pino-117970108/" target="_blank">Linked<i class="fab fa-linkedin"></i></a>
+   <a className="navbar-brand" href="https://codepen.io/tinapino/pens/public" target="_blank">C<i class="fab fa-codepen"></i>
+DEPEN</a>
+    <a className="navbar-brand" href="https://www.instagram.com/denvertinapino" target="_blank"><i class="fab fa-instagram"></i>Instagram</a>
+</nav>)
+}
+
+const Topwords = () => {
+  return(
+  <div className="header text-center"> <i class="fas fa-headphones"></i> Keyboard DJ <i class="fas fa-compact-disc"></i><br/> Click any letter below to start. Keep clicking or type letters to hear beats.</div>)
+}
+
+const Bottomwords = () => {
+  return(
+    <div className="header text-center"> <p>Type or press multiple letters at once to layer beats. </p><p><i class="fas fa-music"></i></p></div>)
+}
+
+class DrumPad extends React.Component {
+  constructor(props) {
+    super(props);
+    
+    this.audio = React.createRef();
+  }
+  
+  componentDidMount() {
+    this.audio.current.addEventListener('ended', (e) => {
+      const parent = e.target.parentNode;
+      parent.classList.remove('active');
+    });
+  }
+  
+  playSound = () => {
+    this.audio.current.play();
+    
+    const id = this.audio.current.id;
+    
+    const parent = this.audio.current.parentNode;
+    parent.classList.add('active');
+    
+    const display = parent.parentNode;
+    display.querySelector('h1').innerText = `${id}`;
+  }
+  
+  render() {
+    const { text, audio } = this.props;
+    
+    return (
+      <div className="drum-pad" onClick={this.playSound} id={`drum-${text}`}>
+        {text}
+        <audio ref={this.audio} src={audio} className="clip" id={text} /> 
+      </div>
+      
+    )
+  }
+}
+    
+document.addEventListener('keydown', (e) => {
+  const id = e.key.toUpperCase();
+  const audio = document.getElementById(id);
+  
+  if(audio) {
+    audio.currentTime = 0;
+    const parent = audio.parentNode;
+    parent.classList.add('active');
+    
+    const display = parent.parentNode;
+    display.querySelector('h1').innerText = `${id}`;
+    audio.play();
+  }
+});
+
+ReactDOM.render(<App />, document.getElementById('drum-machine'));

@@ -1,0 +1,87 @@
+@import url('https://fonts.googleapis.com/css2? family=Sen&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap');
+
+body {
+  font-family: 'Sen', sans-serif;
+  font-size: 1.3em;
+  color: white;
+  background:
+url(https://lh3.googleusercontent.com/tPjgAKDIjI_1Dq0wqFImh6YFMz_NuHyyCxqFA2k8n1er-bDpivcLTy1LpudCJAL1mi5BnXkTwAMlApBhsSwDewCcb2D0_uuoIpLNhUaaquEjmQEtq9cFfVB49WxPagH4Ask5UDAzTqQ=w2400) no-repeat top center fixed;
+  background-size: cover;
+
+}
+
+
+#display{ 
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 1.8em;
+  color:  white;
+  padding: 2.5em;
+}
+
+
+.drum-pad{
+  font-family: 'Orbitron', sans-serif;
+  border: 25px dotted rgb(255, 30, 150, 0.2); 
+  background-color: rgb(55, 0, 0, 0.7);
+  text-align:center;
+  border-radius: 10em;
+  color: white;
+  font-size: 1em;
+  
+ 
+}
+
+.navbar{
+  opacity: 0.6;
+}
+
+.header{
+  
+  font-size: 1.3em;
+  
+  background: linear-gradient(-55deg, rgb(50,0,0,0.4), rgb(50,0,0,0.6), rgb(50,0,0,0.5), rgb(50,0,0,0.4), rgb(255,82,80,0.2), rgb(50, 0, 70,0.2));
+}
+
+.fa-drum{
+  border-radius: 10em;
+  color: white;
+  font-size: 2.7em;
+  font-weight: bold;
+  border: 15px solid rgb(50,0,80,0.3);
+  background-color: rgb(50,0,0,0.7);
+}
+
+.fa-music{
+  border-radius: 10em;
+  color: white;
+  font-size: 2.7em;
+  font-weight: bold;
+
+}
+
+.fa-home{
+  border-radius: 10em;
+  color: white;
+  font-size: 1.5em;
+  font-weight: bold;
+  border: 15px solid rgb(0,0,80,0.3);
+  background-color: rgb(0,0,0,0.7);
+}
+
+@media only screen and (min-width: 768px) {
+
+  #display{
+    grid-template-columns: repeat(5, 1fr)
+}
+  
+  body{ 
+  margin: 1em;
+  }
+  
+  .drum-pad{
+    font-size: 1.5em;
+  }
+}
